@@ -1,7 +1,13 @@
 <script setup>
-import { RouterView } from 'vue-router'
+// export default {
+//   components: {
+//     HeaderNav
+//   }
+// }
+// import { RouterView } from 'vue-router'
 // import HelloWorld from './components/HelloWorld.vue'
 import HeaderNav from './components/HeaderNav.vue'
+
 </script>
 
 <template>
