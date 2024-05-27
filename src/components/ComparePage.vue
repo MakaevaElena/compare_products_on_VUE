@@ -2,7 +2,7 @@
 import { PRODUCTS } from '../products'
 import { computed } from 'vue'
 import ChosenProducts from '../components/ChosenProducts.vue'
-// import CompareTable from './components/CompareTable.vue'
+import CompareTable from '../components/CompareTable.vue'
 
 const chosenCount = 3
 
@@ -37,7 +37,7 @@ const countOfProducts = computed(() => {
     </div>
     <ChosenProducts />
   </div>
-  <!-- <CompareTable /> -->
+  <CompareTable />
 </template>
 
 <style scoped>
