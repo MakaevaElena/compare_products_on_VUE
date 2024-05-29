@@ -1,36 +1,29 @@
 <script setup>
 import { useRootStore } from '@/stores/root'
 import { storeToRefs } from 'pinia'
-// import { onUpdated } from 'vue'
+import { ref } from 'vue'
+import SearchModal from '../components/SearchModal.vue'
 const rootStore = useRootStore()
 
-const { chosenProducts } = storeToRefs(rootStore)
-// const products = rootStore.products
-
-// import { PRODUCTS } from '../products'
-// import SearchModal from '../components/SearchModal.vue'
-// const chosenProducts = rootStore.chosenProducts
-
-// const isModalOpen = false
-// const orderNum = 2
+const { chosenProducts, changedProductId, isModalOpen } = storeToRefs(rootStore)
+const orderNum = ref(0)
 
 function handleShowDiffs() {
   // dispatch(setShowChanges(!showChanges));
   console.log('handleChange')
 }
 
-const onOpenSearchModal = ($event, i, product) => {
+const onOpenSearchModal = (i, product) => {
   // setOrderNum(i);
+  orderNum.value = i
   // dispatch(setChangedProduct(product));
+  rootStore.setChangedProduct(product)
   // dispatch(setChangedProductId(+i));
+  rootStore.setChangedProductId(+i)
   // dispatch(setIsModalOpen(true));
-  // if (changedProductId === i) dispatch(setIsModalOpen(!isModalOpen));
-  console.log('onOpenSearchModal', $event, i, product)
+  rootStore.setIsModalOpen(true)
+  if (changedProductId === i) rootStore.setIsModalOpen(!isModalOpen)
 }
-
-// onUpdated(() => {
-//   rootStore.setChosenProducts(rootStore.products.slice(0, rootStore.chosenCount))
-// })
 </script>
 
 <template>
@@ -41,7 +34,7 @@ const onOpenSearchModal = ($event, i, product) => {
     </div>
 
     <!-- {chosenProducts.map((product, i) => ( -->
-    <div v-for="product in chosenProducts" class="product" :key="product.i">
+    <div v-for="(product, i) in chosenProducts" class="product" :key="i">
       <div class="top">
         <div class="image">
           <img class="product-img" :src="product.productImage" alt="" />
@@ -50,11 +43,11 @@ const onOpenSearchModal = ($event, i, product) => {
         <div
           v-if="chosenProducts.length !== rootStore.products.length"
           class="row-open"
-          @onClick="($event) => onOpenSearchModal($event, i, product)"
+          @click="onOpenSearchModal(i, product)"
         ></div>
       </div>
       <div class="name">{{ product.productName }}</div>
-      <!-- <SearchModal v-if="isModalOpen && orderNum === product.i" /> -->
+      <SearchModal v-if="isModalOpen && orderNum === i" />
     </div>
   </div>
 </template>

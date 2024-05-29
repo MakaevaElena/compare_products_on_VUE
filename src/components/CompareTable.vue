@@ -9,7 +9,7 @@ const PARAMS = Object.keys(COMPARE_PARAMS)
   <div class="table-wrapper wrapper">
     <!-- {Object.keys(COMPARE_PARAMS).map((param: string, i: number) => { return ( !isSameParams(param)
     && ( -->
-    <div v-for="param in PARAMS" :key="param.i" class="compare-row">
+    <div v-for="(param, i) in PARAMS" :key="i" class="compare-row">
       <!-- <div v-if="!isSameParams(param)"> -->
 
       <div class="param-title">
