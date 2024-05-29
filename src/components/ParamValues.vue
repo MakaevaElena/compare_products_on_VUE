@@ -13,7 +13,7 @@ const props = defineProps({
   param: String
 })
 
-const chosenProducts = rootStore.products.slice(0, 3)
+const chosenProducts = rootStore.chosenProducts
 
 const paramValues = computed(() => {
   return chosenProducts.map((product) => {

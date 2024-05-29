@@ -1,6 +1,7 @@
 // import { ref, computed } from 'vue'
 import { defineStore } from 'pinia'
 import { PRODUCTS } from '../products'
+import type { Product } from './types'
 
 // export const useCounterStore = defineStore('counter', () => {
 //   const count = ref(0)
@@ -39,6 +40,29 @@ export const useRootStore = defineStore('root', {
   actions: {
     setChosenCount(val: number) {
       this.chosenCount = val
+    },
+    setSearchValue(val: string) {
+      this.searchValue = val
+    },
+
+    setChosenProducts(val: Product[]) {
+      this.chosenProducts = val
+    },
+
+    setChangedProduct(val: Product) {
+      this.changedProduct = val
+    },
+
+    setChangedProductId(val: number) {
+      this.changedProductId = val
+    },
+
+    setShowChanges(val: boolean) {
+      this.showChanges = val
+    },
+
+    setIsModalOpen(val: boolean) {
+      this.isModalOpen = val
     }
   }
 })

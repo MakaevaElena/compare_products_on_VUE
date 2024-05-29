@@ -1,15 +1,20 @@
 <script setup>
 import { useRootStore } from '@/stores/root'
+import { storeToRefs } from 'pinia'
+// import { onUpdated } from 'vue'
 const rootStore = useRootStore()
-// console.log('products', rootStore.products)
+
+const { chosenProducts } = storeToRefs(rootStore)
+// const products = rootStore.products
 
 // import { PRODUCTS } from '../products'
 // import SearchModal from '../components/SearchModal.vue'
-const chosenProducts = rootStore.products.slice(0, 3)
+// const chosenProducts = rootStore.chosenProducts
+
 // const isModalOpen = false
 // const orderNum = 2
 
-function handleChange() {
+function handleShowDiffs() {
   // dispatch(setShowChanges(!showChanges));
   console.log('handleChange')
 }
@@ -22,12 +27,16 @@ const onOpenSearchModal = ($event, i, product) => {
   // if (changedProductId === i) dispatch(setIsModalOpen(!isModalOpen));
   console.log('onOpenSearchModal', $event, i, product)
 }
+
+// onUpdated(() => {
+//   rootStore.setChosenProducts(rootStore.products.slice(0, rootStore.chosenCount))
+// })
 </script>
 
 <template>
   <div className="choose-products">
     <div>
-      <input className="checkbox-diff" type="checkbox" id="diffs" @onChange="handleChange()" />
+      <input className="checkbox-diff" type="checkbox" id="diffs" @onChange="handleShowDiffs()" />
       <label htmlFor="diffs">Показать различия</label>
     </div>
 

@@ -1,12 +1,12 @@
 <script setup>
-import { useRootStore } from '@/stores/root'
-const rootStore = useRootStore()
-// import { PRODUCTS } from '../products'
 import { computed } from 'vue'
+import { useRootStore } from '@/stores/root'
 import ChosenProducts from '../components/ChosenProducts.vue'
 import CompareTable from '../components/CompareTable.vue'
-
-const chosenCount = 3
+const rootStore = useRootStore()
+// const { chosenCount } = storeToRefs(rootStore)
+// const chosenCount = rootStore.chosenCount
+// const chosenCount = ref(rootStore.chosenCount)
 
 const countOfProducts = computed(() => {
   return rootStore.products.map((_el, i) => {
@@ -15,6 +15,15 @@ const countOfProducts = computed(() => {
     }
   })
 })
+
+const handleOnclick = (event) => {
+  rootStore.setChosenCount(+event.target.innerHTML)
+  rootStore.setChosenProducts(rootStore.products.slice(0, rootStore.chosenCount))
+}
+
+// onUpdated(() => {
+//   rootStore.setChosenProducts(rootStore.products.slice(0, rootStore.chosenCount))
+// })
 </script>
 
 <template>
@@ -29,7 +38,7 @@ const countOfProducts = computed(() => {
         <div
           v-for="count in countOfProducts"
           :key="count"
-          :class="`count-for-compare ${chosenCount == count ? 'chosen' : ''}`"
+          :class="`count-for-compare ${rootStore.chosenCount == count ? 'chosen' : ''}`"
         >
           <p @click="handleOnclick($event)">
             {{ count }}
