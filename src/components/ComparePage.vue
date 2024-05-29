@@ -1,5 +1,7 @@
 <script setup>
-import { PRODUCTS } from '../products'
+import { useRootStore } from '@/stores/root'
+const rootStore = useRootStore()
+// import { PRODUCTS } from '../products'
 import { computed } from 'vue'
 import ChosenProducts from '../components/ChosenProducts.vue'
 import CompareTable from '../components/CompareTable.vue'
@@ -7,7 +9,7 @@ import CompareTable from '../components/CompareTable.vue'
 const chosenCount = 3
 
 const countOfProducts = computed(() => {
-  return PRODUCTS.map((_el, i) => {
+  return rootStore.products.map((_el, i) => {
     if (i > 0 && i < 6) {
       return i + 1
     }

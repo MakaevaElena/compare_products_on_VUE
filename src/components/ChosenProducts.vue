@@ -1,7 +1,11 @@
 <script setup>
-import { PRODUCTS } from '../products'
+import { useRootStore } from '@/stores/root'
+const rootStore = useRootStore()
+// console.log('products', rootStore.products)
+
+// import { PRODUCTS } from '../products'
 // import SearchModal from '../components/SearchModal.vue'
-const chosenProducts = PRODUCTS.slice(0, 3)
+const chosenProducts = rootStore.products.slice(0, 3)
 // const isModalOpen = false
 // const orderNum = 2
 
@@ -35,7 +39,7 @@ const onOpenSearchModal = ($event, i, product) => {
         </div>
 
         <div
-          v-if="chosenProducts.length !== PRODUCTS.length"
+          v-if="chosenProducts.length !== rootStore.products.length"
           class="row-open"
           @onClick="($event) => onOpenSearchModal($event, i, product)"
         ></div>

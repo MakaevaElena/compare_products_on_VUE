@@ -1,30 +1,23 @@
 <script setup>
+// import { storeToRefs } from 'pinia'
+import { useRootStore } from '@/stores/root'
 import { computed } from 'vue'
-import { PRODUCTS } from '../products'
+// import { PRODUCTS } from '../products'
 import { COMPARE_PARAMS } from '../constants.ts'
+
+const rootStore = useRootStore()
+// const { products } = storeToRefs(rootStore)
+// console.log('products', rootStore.products)
 
 const props = defineProps({
   param: String
 })
 
-const chosenProducts = PRODUCTS.slice(0, 3)
+const chosenProducts = rootStore.products.slice(0, 3)
 
 const paramValues = computed(() => {
-  // const paramValues = () => {
   return chosenProducts.map((product) => {
     let paramValue
-
-    // switch (product[COMPARE_PARAMS[props.param]]) {
-    //   case true:
-    //     paramValue = <img src="./img/true.png" alt="" />
-    //     break
-    //   case false:
-    //     // paramValue = <img src="./img/false.png" alt="" />
-    //     break
-
-    //   default:
-    //     paramValue = product[COMPARE_PARAMS[props.param]]
-    // }
     paramValue = product[COMPARE_PARAMS[props.param]]
     return paramValue
   })
@@ -33,9 +26,9 @@ const paramValues = computed(() => {
 
 <template>
   <div v-for="paramValue in paramValues" :key="paramValue" class="param-value">
-    <p v-if="paramValue === true"><img src="../../public/img/true.png" alt="" /></p>
+    <p v-if="paramValue === true"><img src="../../img/true.png" alt="" /></p>
     <p v-else-if="paramValue === false">
-      <img src="../..//public/img/false.png" alt="" />
+      <img src="../../img/false.png" alt="" />
     </p>
     <p v-else>{{ paramValue }}</p>
   </div>
