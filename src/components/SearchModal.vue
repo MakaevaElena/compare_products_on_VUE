@@ -22,15 +22,15 @@ function handleChange(evt) {
 }
 
 const handleChangeProduct = (product) => {
-  const copyChosenProducts = chosenProducts.slice()
+  const copyChosenProducts = rootStore.chosenProducts.slice()
 
-  copyChosenProducts.splice(changedProductId, 1, product)
+  copyChosenProducts.splice(rootStore.changedProductId, 1, product)
   // dispatch(setChosenProducts(copyChosenProducts))
   rootStore.setChosenProducts(copyChosenProducts)
   // dispatch(setIsModalOpen(false))
   rootStore.setIsModalOpen(false)
 
-  rootStore.setChosenProducts(chosenProducts)
+  rootStore.setChosenProducts(rootStore.chosenProducts)
 }
 
 // useEffect(() => {
