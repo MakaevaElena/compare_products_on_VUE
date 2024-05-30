@@ -1,25 +1,27 @@
 <script setup>
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import { useRootStore } from '@/stores/root'
 // import { storeToRefs } from 'pinia'
 
 const value = ref('')
 const rootStore = useRootStore()
-// const { searchValue } = storeToRefs(rootStore)
 
 const inModalProducts = rootStore.products.filter(
   (product) => !rootStore.chosenProducts.includes(product)
 )
 
-const searchingProducts = value.value
-  ? inModalProducts.filter((product) =>
-      product.productName.toLowerCase().includes(value.value.toLowerCase())
-    )
-  : inModalProducts
+console.log('inModalProducts', inModalProducts)
+
+const searchingProducts = computed(() => {
+  return value.value
+    ? inModalProducts.filter((product) =>
+        product.productName.toLowerCase().includes(value.value.toLowerCase())
+      )
+    : inModalProducts
+})
 
 function handleChange(evt) {
   value.value = evt?.target.value
-  // rootStore.setSearchValue(value.value)
 }
 
 const handleChangeProduct = (product) => {
