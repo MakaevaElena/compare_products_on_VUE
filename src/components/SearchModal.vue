@@ -1,11 +1,11 @@
 <script setup>
 import { ref } from 'vue'
 import { useRootStore } from '@/stores/root'
-import { storeToRefs } from 'pinia'
+// import { storeToRefs } from 'pinia'
 
 const value = ref('')
 const rootStore = useRootStore()
-const { chosenProducts, changedProductId } = storeToRefs(rootStore)
+// const { searchValue } = storeToRefs(rootStore)
 
 const inModalProducts = rootStore.products.filter(
   (product) => !rootStore.chosenProducts.includes(product)
@@ -19,6 +19,7 @@ const searchingProducts = value.value
 
 function handleChange(evt) {
   value.value = evt?.target.value
+  // rootStore.setSearchValue(value.value)
 }
 
 const handleChangeProduct = (product) => {
@@ -32,14 +33,6 @@ const handleChangeProduct = (product) => {
 
   rootStore.setChosenProducts(rootStore.chosenProducts)
 }
-
-// useEffect(() => {
-//   dispatch(setChosenProducts(chosenProducts))
-// }, [chosenProducts, dispatch])
-
-// watch(() => {
-//   rootStore.setChosenProducts(chosenProducts)
-// })      v-if="rootStore.inModalProducts.length > 3"
 </script>
 
 <template>
@@ -47,12 +40,11 @@ const handleChangeProduct = (product) => {
     <form>
       <input
         v-if="inModalProducts.length > 3"
-        ref="inputRef"
         class="modal search-input"
         type="text"
         placeholder="Поиск"
-        :value="value"
-        @change="handleChange"
+        v-model="value"
+        @input="handleChange"
       />
 
       <div class="modal product-list">

@@ -1,23 +1,36 @@
 <script setup>
 import ParamValues from '../components/ParamValues.vue'
+import { useRootStore } from '@/stores/root'
+import { storeToRefs } from 'pinia'
 import { COMPARE_PARAMS } from '../constants.ts'
 
+const rootStore = useRootStore()
+const { showChanges } = storeToRefs(rootStore)
+
 const PARAMS = Object.keys(COMPARE_PARAMS)
+
+const isSameParams = (param) => {
+  const setOfParams = new Set()
+  rootStore.chosenProducts.map((product) => {
+    setOfParams.add(product[COMPARE_PARAMS[param]])
+  })
+  return showChanges.value && setOfParams.size === 1
+}
 </script>
 
 <template>
   <div class="table-wrapper wrapper">
     <!-- {Object.keys(COMPARE_PARAMS).map((param: string, i: number) => { return ( !isSameParams(param)
     && ( -->
-    <div v-for="(param, i) in PARAMS" :key="i" class="compare-row">
-      <!-- <div v-if="!isSameParams(param)"> -->
+    <div v-for="(param, i) in PARAMS" :key="i">
+      <div v-if="!isSameParams(param)" class="compare-row">
+        <div class="param-title">
+          <p>{{ param }}</p>
+        </div>
 
-      <div class="param-title">
-        <p>{{ param }}</p>
+        <!-- {{ renderParamValues(param) }} -->
+        <ParamValues :param="param" />
       </div>
-
-      <!-- {{ renderParamValues(param) }} -->
-      <ParamValues :param="param" />
     </div>
     <!-- ) ); })} -->
   </div>

@@ -5,7 +5,7 @@ export const PRODUCTS = [
     productName: 'Apple iPhone 12',
     productImage: './img/iphone.png',
     producer: 'Apple',
-    year: 2020,
+    year: 2021,
     diagonal: 6.1,
     country: 'Китай',
     memory: `128 Гб`,

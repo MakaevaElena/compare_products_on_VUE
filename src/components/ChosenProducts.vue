@@ -10,7 +10,7 @@ const orderNum = ref(0)
 
 function handleShowDiffs() {
   // dispatch(setShowChanges(!showChanges));
-  console.log('handleChange')
+  rootStore.setShowChanges(!rootStore.showChanges)
 }
 
 const onOpenSearchModal = (i, product) => {
@@ -29,7 +29,7 @@ const onOpenSearchModal = (i, product) => {
 <template>
   <div className="choose-products">
     <div>
-      <input className="checkbox-diff" type="checkbox" id="diffs" @onChange="handleShowDiffs()" />
+      <input className="checkbox-diff" type="checkbox" id="diffs" @change="handleShowDiffs()" />
       <label htmlFor="diffs">Показать различия</label>
     </div>
 

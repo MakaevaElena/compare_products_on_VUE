@@ -13,10 +13,10 @@ const props = defineProps({
   param: String
 })
 
-const chosenProducts = rootStore.chosenProducts
+// const chosenProducts = rootStore.chosenProducts
 
 const paramValues = computed(() => {
-  return chosenProducts.map((product) => {
+  return rootStore.chosenProducts.map((product) => {
     let paramValue
     paramValue = product[COMPARE_PARAMS[props.param]]
     return paramValue
